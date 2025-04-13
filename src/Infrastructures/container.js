@@ -6,7 +6,7 @@ const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
 const pool = require('./database/postgres/pool');
 
-// service
+// service (repository, helper, manager, etc)
 const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
 const BcryptPasswordHash = require('./security/BcryptPasswordHash');
 
@@ -15,10 +15,10 @@ const AddUserUseCase = require('../Applications/use_case/AddUserUseCase');
 const UserRepository = require('../Domains/users/UserRepository');
 const PasswordHash = require('../Applications/security/PasswordHash');
 
-// create container
+// creating container
 const container = createContainer();
 
-// registering service and repository
+// registering services and repository
 container.register([
   {
     key: UserRepository.name,
