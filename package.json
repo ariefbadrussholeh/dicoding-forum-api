@@ -6,9 +6,10 @@
     "start": "node src/app.js",
     "start:dev": "nodemon src/app.js",
     "test": "jest --coverage --setupFiles dotenv/config --runInBand",
+    "test:change": "jest --coverage --onlyChanged --setupFiles dotenv/config --runInBand",
     "test:watch": "jest --watchAll --verbose --coverage --setupFiles dotenv/config --runInBand",
     "migrate": "node-pg-migrate",
-    "migrate:test": "node-pg-migrate --env-path .test.env"
+    "migrate:test": "node-pg-migrate -f config/database/test.json"
   },
   "keywords": [],
   "author": "Arief Badrus Sholeh",
