@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node src/app.js",
     "start:dev": "nodemon src/app.js",
-    "test": "jest --coverage",
-    "test:watch": "jest --watchAll --verbose --coverage",
+    "test": "jest --coverage --setupFiles dotenv/config",
+    "test:watch": "jest --watchAll --verbose --coverage --setupFiles dotenv/config",
     "migrate": "node-pg-migrate",
     "migrate:test": "node-pg-migrate --env-path .test.env"
   },
