@@ -148,6 +148,7 @@ describe('ReplyRepositoryPostgres', () => {
         content: 'reply-content',
         owner: 'user-123',
         date: new Date('2025-06-11T07:22:33.555Z'),
+        is_deleted: false,
       });
 
       const fakeIdGenerator = () => '123';
@@ -161,6 +162,27 @@ describe('ReplyRepositoryPostgres', () => {
       expect(replies[0]).toHaveProperty('username', 'ariefbadrussholeh');
       expect(replies[0]).toHaveProperty('date', new Date('2025-06-11T07:22:33.555Z'));
       expect(replies[0]).toHaveProperty('content', 'reply-content');
+      expect(replies[0]).toHaveProperty('is_deleted', false);
+    });
+  });
+
+  describe('deleteReplyById function', () => {
+    it('should delete reply correctly', async () => {
+      const replyId = 'reply-123';
+      await RepliesTableTestHelper.addReply({
+        id: replyId,
+        comment_id: 'comment-123',
+        content: 'comment-content',
+        owner: 'user-123',
+      });
+
+      const fakeIdGenerator = () => '123';
+      const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, fakeIdGenerator);
+
+      await replyRepositoryPostgres.deleteReplyById(replyId);
+
+      const result = await RepliesTableTestHelper.findReplyById(replyId);
+      expect(result[0]).toHaveProperty('is_deleted', true);
     });
   });
 });

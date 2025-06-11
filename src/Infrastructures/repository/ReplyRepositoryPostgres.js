@@ -52,7 +52,7 @@ class ReplyRepositoryPostgres extends ReplyRepository {
   async getRepliesByCommentId(commentId) {
     const query = {
       text:
-        'SELECT replies.id, users.username, replies.date, replies.content ' +
+        'SELECT replies.id, users.username, replies.date, replies.content, replies.is_deleted ' +
         'FROM replies JOIN users ON replies.owner = users.id ' +
         'WHERE replies.comment_id = $1 ' +
         'ORDER BY replies.date ASC',
@@ -62,6 +62,15 @@ class ReplyRepositoryPostgres extends ReplyRepository {
     const result = await this._pool.query(query);
 
     return result.rows;
+  }
+
+  async deleteReplyById(replyId) {
+    const query = {
+      text: 'UPDATE replies SET is_deleted = true WHERE id=$1',
+      values: [replyId],
+    };
+
+    await this._pool.query(query);
   }
 }
 
