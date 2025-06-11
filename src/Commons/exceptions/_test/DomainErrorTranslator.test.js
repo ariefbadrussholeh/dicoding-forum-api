@@ -58,26 +58,24 @@ describe('DomainErrorTranslator', () => {
     expect(
       DomainErrorTranslator.translate(new Error('NEW_THREAD.NOT_CONTAIN_NEEDED_PROPERTY')),
     ).toStrictEqual(
-      new InvariantError(
-        'tidak dapat membuat thread baru karena properti yang dibutuhkan tidak ada',
-      ),
+      new InvariantError('tidak dapat membuat utas baru karena properti yang dibutuhkan tidak ada'),
     );
     expect(
       DomainErrorTranslator.translate(new Error('NEW_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION')),
     ).toStrictEqual(
-      new InvariantError('tidak dapat membuat thread baru karena tipe data tidak sesuai'),
+      new InvariantError('tidak dapat membuat utas baru karena tipe data tidak sesuai'),
     );
     expect(
       DomainErrorTranslator.translate(new Error('NEW_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY')),
     ).toStrictEqual(
       new InvariantError(
-        'tidak dapat membuat comment baru karena properti yang dibutuhkan tidak ada',
+        'tidak dapat membuat komentar baru karena properti yang dibutuhkan tidak ada',
       ),
     );
     expect(
       DomainErrorTranslator.translate(new Error('NEW_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION')),
     ).toStrictEqual(
-      new InvariantError('tidak dapat membuat comment baru karena tipe data tidak sesuai'),
+      new InvariantError('tidak dapat membuat komentar baru karena tipe data tidak sesuai'),
     );
   });
 
