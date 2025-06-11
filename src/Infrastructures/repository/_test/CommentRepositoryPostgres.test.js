@@ -151,4 +151,30 @@ describe('CommentRepositoryPostgres', () => {
       expect(result[0]).toHaveProperty('is_deleted', true);
     });
   });
+
+  describe('getCommentsByThreadId function', () => {
+    it('should return comments correctly', async () => {
+      await CommentsTableTestHelper.addComment({
+        id: 'comment-123',
+        thread_id: 'thread-123',
+        content: 'comment-content',
+        owner: 'user-123',
+        date: new Date('2025-06-11T07:22:33.555Z'),
+        is_deleted: false,
+      });
+
+      const fakeIdGenerator = () => '123';
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
+
+      const comments = await commentRepositoryPostgres.getCommentsByThreadId('thread-123');
+
+      expect(comments).toHaveLength(1);
+
+      expect(comments[0]).toHaveProperty('id', 'comment-123');
+      expect(comments[0]).toHaveProperty('username', 'ariefbadrussholeh');
+      expect(comments[0]).toHaveProperty('date', new Date('2025-06-11T07:22:33.555Z'));
+      expect(comments[0]).toHaveProperty('content', 'comment-content');
+      expect(comments[0]).toHaveProperty('is_deleted', false);
+    });
+  });
 });

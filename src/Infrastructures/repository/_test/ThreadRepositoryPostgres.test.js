@@ -87,4 +87,27 @@ describe('ThreadRepositoryPostgres', () => {
       ).resolves.not.toThrowError(NotFoundError);
     });
   });
+
+  describe('getThreadById function', () => {
+    it('should return thread correctly', async () => {
+      await ThreadsTableTestHelper.addThread({
+        id: 'thread-123',
+        title: 'thread-title',
+        body: 'thread-body',
+        owner: 'user-123',
+        date: new Date('2025-06-11T07:22:33.555Z'),
+      });
+
+      const fakeIdGenerator = () => '123';
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
+
+      const thread = await threadRepositoryPostgres.getThreadById('thread-123');
+
+      expect(thread).toHaveProperty('id', 'thread-123');
+      expect(thread).toHaveProperty('title', 'thread-title');
+      expect(thread).toHaveProperty('body', 'thread-body');
+      expect(thread).toHaveProperty('date', new Date('2025-06-11T07:22:33.555Z'));
+      expect(thread).toHaveProperty('username', 'ariefbadrussholeh');
+    });
+  });
 });
