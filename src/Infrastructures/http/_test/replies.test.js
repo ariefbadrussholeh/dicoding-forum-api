@@ -125,4 +125,88 @@ describe('/threads/{threadId}/comments/{commentId}/replies endpoint', () => {
       expect(responseJson.message).toEqual('Missing authentication');
     });
   });
+
+  describe('when DELETE /threads/{threadId}/comments/{commentId}/replies/{replyId}', () => {
+    it('should response 200 when reply successfully deleted', async () => {
+      const replyId = 'reply-123';
+      await RepliesTableTestHelper.addReply({
+        id: replyId,
+        comment_id: commentId,
+        content: 'reply-content',
+        owner: userId,
+      });
+
+      const server = await createServer(container);
+
+      const response = await server.inject({
+        method: 'DELETE',
+        url: `/threads/${threadId}/comments/${commentId}/replies/${replyId}`,
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(200);
+      expect(responseJson.status).toEqual('success');
+    });
+
+    it('should response 401 when access token not provided', async () => {
+      const replyId = 'reply-123';
+      const server = await createServer(container);
+
+      const response = await server.inject({
+        method: 'DELETE',
+        url: `/threads/${threadId}/comments/${commentId}/replies/${replyId}`,
+      });
+
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(401);
+      expect(responseJson.message).toEqual('Missing authentication');
+    });
+
+    it('should response 403 when not authorized', async () => {
+      const differentUserId = 'user-456';
+
+      await UsersTableTestHelper.addUser({
+        id: differentUserId,
+        username: 'lamineyamal',
+        password: 'supersecretpassword',
+        fullname: 'Lamine Yamal',
+      });
+
+      const replyId = 'reply-123';
+      await RepliesTableTestHelper.addReply({
+        id: replyId,
+        comment_id: commentId,
+        content: 'reply-content',
+        owner: differentUserId,
+      });
+
+      const server = await createServer(container);
+
+      const response = await server.inject({
+        method: 'DELETE',
+        url: `/threads/${threadId}/comments/${commentId}/replies/${replyId}`,
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(403);
+      expect(responseJson.message).toEqual('anda tidak memiliki akses terhadap balasan ini');
+    });
+
+    it('should response 404 when reply not found', async () => {
+      const replyId = 'reply-xxx';
+      const server = await createServer(container);
+
+      const response = await server.inject({
+        method: 'DELETE',
+        url: `/threads/${threadId}/comments/${commentId}/replies/${replyId}`,
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      const responseJson = JSON.parse(response.payload);
+      expect(response.statusCode).toEqual(404);
+      expect(responseJson.message).toEqual('balasan tidak ditemukan');
+    });
+  });
 });
