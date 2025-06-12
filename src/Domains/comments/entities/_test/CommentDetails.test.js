@@ -17,6 +17,7 @@ describe('a CommentDetails entities', () => {
       username: 'ariefbadrussholeh',
       date: new Date(),
       content: 'comment-content',
+      replies: [{ content: 'reply-content' }],
       is_deleted: false,
     };
 
@@ -31,6 +32,7 @@ describe('a CommentDetails entities', () => {
       username: 'ariefbadrussholeh',
       date: new Date(),
       content: 'comment-content',
+      replies: [{ content: 'reply-content' }],
       is_deleted: false,
     };
 
@@ -39,6 +41,7 @@ describe('a CommentDetails entities', () => {
       username: 'lamineyamal',
       date: new Date(),
       content: 'comment-content',
+      replies: [{ content: 'reply-content' }],
       is_deleted: true,
     };
 
@@ -47,6 +50,7 @@ describe('a CommentDetails entities', () => {
       username: username1,
       date: date1,
       content: content1,
+      replies: replies1,
     } = new CommentDetails(payload1);
 
     const {
@@ -54,16 +58,19 @@ describe('a CommentDetails entities', () => {
       username: username2,
       date: date2,
       content: content2,
+      replies: replies2,
     } = new CommentDetails(payload2);
 
     expect(id1).toEqual(payload1.id);
     expect(username1).toEqual(payload1.username);
     expect(date1).toEqual(payload1.date);
     expect(content1).toEqual(payload1.content);
+    expect(replies1).toEqual(payload1.replies);
 
     expect(id2).toEqual(payload2.id);
     expect(username2).toEqual(payload2.username);
     expect(date2).toEqual(payload2.date);
     expect(content2).toEqual('**komentar telah dihapus**');
+    expect(replies2).toEqual(payload2.replies);
   });
 });

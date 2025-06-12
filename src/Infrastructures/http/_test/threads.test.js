@@ -5,6 +5,7 @@ const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper
 const EndpointTestHelper = require('../../../../tests/EndpointTestHelper');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
+const RepliesTableTestHelper = require('../../../../tests/RepliesTableTestHelper');
 
 describe('/threads endpoint', () => {
   let accessToken;
@@ -141,7 +142,7 @@ describe('/threads endpoint', () => {
 
       const commentData1 = {
         id: 'comment-123',
-        threadId: threadData.id,
+        thread_id: threadData.id,
         content: 'comment-content',
         date: new Date('2025-06-11T07:22:33.555Z'),
         owner: userData1.id,
@@ -150,13 +151,32 @@ describe('/threads endpoint', () => {
 
       const commentData2 = {
         id: 'comment-456',
-        threadId: threadData.id,
+        thread_id: threadData.id,
         content: 'comment-content',
         date: new Date('2025-06-11T07:22:33.555Z'),
         owner: userData2.id,
         is_deleted: true,
       };
       await CommentsTableTestHelper.addComment(commentData2);
+
+      const replyData1 = {
+        id: 'reply-123',
+        comment_id: commentData1.id,
+        content: 'reply-content',
+        date: new Date('2025-06-11T07:22:33.555Z'),
+        owner: userData1.id,
+      };
+      await RepliesTableTestHelper.addReply(replyData1);
+
+      const replyData2 = {
+        id: 'reply-456',
+        comment_id: commentData1.id,
+        content: 'reply-content',
+        date: new Date('2025-06-11T07:22:33.555Z'),
+        owner: userData2.id,
+        is_deleted: true,
+      };
+      await RepliesTableTestHelper.addReply(replyData2);
 
       const expectedThread = {
         id: threadData.id,
@@ -170,12 +190,27 @@ describe('/threads endpoint', () => {
             content: commentData1.content,
             date: commentData1.date.toISOString(),
             username: userData1.username,
+            replies: [
+              {
+                id: replyData1.id,
+                content: replyData1.content,
+                date: replyData1.date.toISOString(),
+                username: userData1.username,
+              },
+              {
+                id: replyData2.id,
+                content: '**balasan telah dihapus**',
+                date: replyData2.date.toISOString(),
+                username: userData2.username,
+              },
+            ],
           },
           {
             id: commentData2.id,
             content: '**komentar telah dihapus**',
             date: commentData2.date.toISOString(),
             username: userData2.username,
+            replies: [],
           },
         ],
       };

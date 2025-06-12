@@ -1,10 +1,12 @@
 const ThreadDetails = require('../../Domains/threads/entities/ThreadDetails');
 const CommentDetails = require('../../Domains/comments/entities/CommentDetails');
+const ReplyDetails = require('../../Domains/replies/entities/ReplyDetails');
 
 class GetThreadUseCaseUseCase {
-  constructor({ threadRepository, commentRepository }) {
+  constructor({ threadRepository, commentRepository, replyRepository }) {
     this._threadRepository = threadRepository;
     this._commentRepository = commentRepository;
+    this._replyRepository = replyRepository;
   }
 
   async execute(useCasePayload) {
@@ -14,7 +16,14 @@ class GetThreadUseCaseUseCase {
 
     const commentsData = await this._commentRepository.getCommentsByThreadId(useCasePayload);
 
-    const comments = commentsData.map((comment) => new CommentDetails(comment));
+    const comments = [];
+
+    for (const comment of commentsData) {
+      const repliesData = await this._replyRepository.getRepliesByCommentId(comment.id);
+      const replies = repliesData.map((reply) => new ReplyDetails(reply));
+
+      comments.push(new CommentDetails({ ...comment, replies }));
+    }
 
     return new ThreadDetails({
       ...thread,
