@@ -2,12 +2,13 @@ class ReplyDetails {
   constructor(payload) {
     this._verifyPayload(payload);
 
-    const { id, content, date, username } = this._formatPayload(payload);
+    const { id, content, date, username, is_deleted: isDeleted } = this._formatPayload(payload);
 
     this.id = id;
     this.content = content;
     this.date = date;
     this.username = username;
+    this.isDeleted = isDeleted;
   }
 
   _verifyPayload({ id, content, date, username, is_deleted: isDeleted }) {
@@ -16,11 +17,11 @@ class ReplyDetails {
     }
 
     if (
-      typeof id !== 'string'
-      || typeof content !== 'string'
-      || !(date instanceof Date)
-      || typeof username !== 'string'
-      || typeof isDeleted !== 'boolean'
+      typeof id !== 'string' ||
+      typeof content !== 'string' ||
+      !(date instanceof Date) ||
+      typeof username !== 'string' ||
+      typeof isDeleted !== 'boolean'
     ) {
       throw new Error('REPLY_DETAILS.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
