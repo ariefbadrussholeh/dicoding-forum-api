@@ -14,6 +14,14 @@ const createServer = async (container) => {
     port: process.env.PORT,
   });
 
+  server.route({
+    method: 'GET',
+    path: '/',
+    handler: () => ({
+      value: 'Hello world!',
+    }),
+  });
+
   await server.register([
     {
       plugin: Jwt,
