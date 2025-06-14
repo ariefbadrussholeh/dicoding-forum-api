@@ -19,6 +19,7 @@ describe('a CommentDetails entities', () => {
       content: 'comment-content',
       replies: [{ content: 'reply-content' }],
       is_deleted: false,
+      likeCount: 1,
     };
 
     expect(() => new CommentDetails(payload)).toThrowError(
@@ -34,6 +35,7 @@ describe('a CommentDetails entities', () => {
       content: 'comment-content',
       replies: [{ content: 'reply-content' }],
       is_deleted: false,
+      likeCount: 1,
     };
 
     const payload2 = {
@@ -43,6 +45,7 @@ describe('a CommentDetails entities', () => {
       content: 'comment-content',
       replies: [{ content: 'reply-content' }],
       is_deleted: true,
+      likeCount: 2,
     };
 
     const {
@@ -51,6 +54,7 @@ describe('a CommentDetails entities', () => {
       date: date1,
       content: content1,
       replies: replies1,
+      likeCount: likeCount1,
     } = new CommentDetails(payload1);
 
     const {
@@ -59,6 +63,7 @@ describe('a CommentDetails entities', () => {
       date: date2,
       content: content2,
       replies: replies2,
+      likeCount: likeCount2,
     } = new CommentDetails(payload2);
 
     expect(id1).toEqual(payload1.id);
@@ -66,11 +71,13 @@ describe('a CommentDetails entities', () => {
     expect(date1).toEqual(payload1.date);
     expect(content1).toEqual(payload1.content);
     expect(replies1).toEqual(payload1.replies);
+    expect(likeCount1).toEqual(payload1.likeCount);
 
     expect(id2).toEqual(payload2.id);
     expect(username2).toEqual(payload2.username);
     expect(date2).toEqual(payload2.date);
     expect(content2).toEqual('**komentar telah dihapus**');
     expect(replies2).toEqual(payload2.replies);
+    expect(likeCount2).toEqual(payload2.likeCount);
   });
 });
