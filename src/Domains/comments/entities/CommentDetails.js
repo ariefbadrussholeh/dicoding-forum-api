@@ -23,25 +23,25 @@ class CommentDetails {
 
   _verifyPayload({ id, username, date, content, replies, is_deleted: isDeleted, likeCount }) {
     if (
-      !id ||
-      !username ||
-      !date ||
-      !content ||
-      !replies ||
-      isDeleted === undefined ||
-      likeCount == undefined
+      !id
+      || !username
+      || !date
+      || !content
+      || !replies
+      || isDeleted === undefined
+      || likeCount === undefined
     ) {
       throw new Error('COMMENT_DETAILS.NOT_CONTAIN_NEEDED_PROPERTY');
     }
 
     if (
-      typeof id !== 'string' ||
-      typeof username !== 'string' ||
-      !(date instanceof Date) ||
-      typeof content !== 'string' ||
-      !Array.isArray(replies) ||
-      typeof isDeleted !== 'boolean' ||
-      typeof likeCount !== 'number'
+      typeof id !== 'string'
+      || typeof username !== 'string'
+      || !(date instanceof Date)
+      || typeof content !== 'string'
+      || !Array.isArray(replies)
+      || typeof isDeleted !== 'boolean'
+      || typeof likeCount !== 'number'
     ) {
       throw new Error('COMMENT_DETAILS.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
