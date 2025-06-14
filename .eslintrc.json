@@ -12,6 +12,8 @@
   "rules": {
     "linebreak-style": "off",
     "no-console": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "class-methods-use-this": "off",
+    "object-curly-newline": "off" // There is a conflict between eslint object-curly-newline and multi-line rationale. source: https://stackoverflow.com/questions/59318013/eslint-object-curly-newline-conflicts-prettier-multi-line-rationale
   }
 }

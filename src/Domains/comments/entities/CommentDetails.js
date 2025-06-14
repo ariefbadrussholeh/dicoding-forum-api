@@ -17,12 +17,12 @@ class CommentDetails {
     }
 
     if (
-      typeof id !== 'string' ||
-      typeof username !== 'string' ||
-      !(date instanceof Date) ||
-      typeof content !== 'string' ||
-      !Array.isArray(replies) ||
-      typeof isDeleted !== 'boolean'
+      typeof id !== 'string'
+      || typeof username !== 'string'
+      || !(date instanceof Date)
+      || typeof content !== 'string'
+      || !Array.isArray(replies)
+      || typeof isDeleted !== 'boolean'
     ) {
       throw new Error('COMMENT_DETAILS.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }

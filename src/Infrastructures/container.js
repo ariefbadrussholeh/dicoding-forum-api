@@ -9,12 +9,12 @@ const pool = require('./database/postgres/pool');
 
 // service (repository, helper, manager, etc)
 const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres');
-const AuthenticationRepositoryPostgres = require('../Infrastructures/repository/AuthenticationRepositoryPostgres');
-const ThreadRepositoryPostgres = require('../Infrastructures/repository/ThreadRepositoryPostgres');
-const CommentRepositoryPostgres = require('../Infrastructures/repository/CommentRepositoryPostgres');
-const ReplyRepositoryPostgres = require('../Infrastructures/repository/ReplyRepositoryPostgres');
+const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRepositoryPostgres');
+const ThreadRepositoryPostgres = require('./repository/ThreadRepositoryPostgres');
+const CommentRepositoryPostgres = require('./repository/CommentRepositoryPostgres');
+const ReplyRepositoryPostgres = require('./repository/ReplyRepositoryPostgres');
 const BcryptPasswordHash = require('./security/BcryptPasswordHash');
-const JwtTokenManager = require('../Infrastructures/security/JwtTokenManager');
+const JwtTokenManager = require('./security/JwtTokenManager');
 
 // use case
 const AddUserUseCase = require('../Applications/use_case/AddUserUseCase');

@@ -15,33 +15,29 @@ describe('GetThreadDetailUseCase', () => {
     const mockCommentRepository = new CommentRepository();
 
     mockThreadRepository.verifyThreadExist = jest.fn(() => Promise.resolve());
-    mockThreadRepository.getThreadById = jest.fn(() =>
-      Promise.resolve({
-        id: 'thread-123',
-        title: 'thread-title',
-        body: 'thread-body',
-        date: new Date('2025-06-11T07:22:33.555Z'),
+    mockThreadRepository.getThreadById = jest.fn(() => Promise.resolve({
+      id: 'thread-123',
+      title: 'thread-title',
+      body: 'thread-body',
+      date: new Date('2025-06-11T07:22:33.555Z'),
+      username: 'ariefbadrussholeh',
+    }));
+    mockCommentRepository.getCommentsByThreadId = jest.fn(() => Promise.resolve([
+      {
+        id: 'comment-123',
         username: 'ariefbadrussholeh',
-      }),
-    );
-    mockCommentRepository.getCommentsByThreadId = jest.fn(() =>
-      Promise.resolve([
-        {
-          id: 'comment-123',
-          username: 'ariefbadrussholeh',
-          date: new Date('2025-06-11T07:22:33.555Z'),
-          content: 'comment-content',
-          is_deleted: false,
-        },
-        {
-          id: 'comment-456',
-          username: 'lamineyamal',
-          date: new Date('2025-06-11T07:22:33.555Z'),
-          content: 'comment-content',
-          is_deleted: true,
-        },
-      ]),
-    );
+        date: new Date('2025-06-11T07:22:33.555Z'),
+        content: 'comment-content',
+        is_deleted: false,
+      },
+      {
+        id: 'comment-456',
+        username: 'lamineyamal',
+        date: new Date('2025-06-11T07:22:33.555Z'),
+        content: 'comment-content',
+        is_deleted: true,
+      },
+    ]));
     mockReplyRepository.getRepliesByCommentId = jest.fn((commentId) => {
       if (commentId === 'comment-123') {
         return Promise.resolve([

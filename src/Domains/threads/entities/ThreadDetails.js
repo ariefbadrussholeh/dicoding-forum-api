@@ -18,12 +18,12 @@ class ThreadDetails {
     }
 
     if (
-      typeof id !== 'string' ||
-      typeof title !== 'string' ||
-      typeof body !== 'string' ||
-      !(date instanceof Date) ||
-      typeof username !== 'string' ||
-      !Array.isArray(comments)
+      typeof id !== 'string'
+      || typeof title !== 'string'
+      || typeof body !== 'string'
+      || !(date instanceof Date)
+      || typeof username !== 'string'
+      || !Array.isArray(comments)
     ) {
       throw new Error('THREAD_DETAILS.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }

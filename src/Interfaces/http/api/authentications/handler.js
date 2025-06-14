@@ -40,7 +40,7 @@ class AuthenticationsHandler {
     };
   }
 
-  async deleteAuthenticationHandler(request, h) {
+  async deleteAuthenticationHandler(request) {
     const logoutUserUseCase = this._container.getInstance(LogoutUserUseCase.name);
     await logoutUserUseCase.execute(request.payload);
 

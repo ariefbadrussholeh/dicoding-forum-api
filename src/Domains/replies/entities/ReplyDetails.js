@@ -16,11 +16,11 @@ class ReplyDetails {
     }
 
     if (
-      typeof id !== 'string' ||
-      typeof content !== 'string' ||
-      !(date instanceof Date) ||
-      typeof username !== 'string' ||
-      typeof isDeleted !== 'boolean'
+      typeof id !== 'string'
+      || typeof content !== 'string'
+      || !(date instanceof Date)
+      || typeof username !== 'string'
+      || typeof isDeleted !== 'boolean'
     ) {
       throw new Error('REPLY_DETAILS.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }

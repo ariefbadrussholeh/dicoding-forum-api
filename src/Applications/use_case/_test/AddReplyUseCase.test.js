@@ -26,13 +26,11 @@ describe('AddReplyUseCase', () => {
 
     mockThreadRepository.verifyThreadExist = jest.fn(() => Promise.resolve());
     mockCommentRepository.verifyCommentExist = jest.fn(() => Promise.resolve());
-    mockReplyRepository.addReply = jest.fn(() =>
-      Promise.resolve({
-        id: 'comment-123',
-        content: useCasePayload.content,
-        owner: useCasePayload.owner,
-      }),
-    );
+    mockReplyRepository.addReply = jest.fn(() => Promise.resolve({
+      id: 'comment-123',
+      content: useCasePayload.content,
+      owner: useCasePayload.owner,
+    }));
 
     const addReplyUseCase = new AddReplyUseCase({
       threadRepository: mockThreadRepository,

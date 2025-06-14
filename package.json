@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node src/app.js",
     "start:dev": "nodemon src/app.js",
+    "lint": "eslint ./src",
+    "lint:fix": "npm run lint -- --fix",
     "test": "jest --coverage --setupFiles dotenv/config --runInBand",
     "test:change": "jest --coverage --onlyChanged --setupFiles dotenv/config --runInBand",
     "test:watch": "jest --watchAll --verbose --coverage --setupFiles dotenv/config --runInBand",
@@ -27,7 +29,9 @@
   "devDependencies": {
     "@eslint/js": "^9.24.0",
     "@types/jest": "^29.5.14",
-    "eslint": "^9.24.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0",
     "globals": "^16.0.0",
     "jest": "^29.7.0",
     "node-pg-migrate": "^7.9.1",

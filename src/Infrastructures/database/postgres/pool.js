@@ -13,8 +13,11 @@ const config = {
 
 const pool = new Pool(config);
 
-// console.log(
-//   `[INFO] Actual Pool Config → host=${pool.options.host} | port=${pool.options.port} | user=${pool.options.user} | database=${pool.options.database}`,
-// );
+console.log(
+  `[INFO] Actual Pool Config → host=${pool.options.host} | `
+    + `port=${pool.options.port} | `
+    + `user=${pool.options.user} | `
+    + `database=${pool.options.database}`,
+);
 
 module.exports = pool;
