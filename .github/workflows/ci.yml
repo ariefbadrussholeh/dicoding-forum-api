@@ -18,8 +18,8 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: mysecretpassword
+          POSTGRES_USER: isol
+          POSTGRES_PASSWORD: 123456
           POSTGRES_DB: forumapi_test
 
         options: >-
@@ -48,8 +48,8 @@ jobs:
           PORT: 5000
           PGHOST_TEST: localhost
           PGPORT_TEST: 5432
-          PGUSER_TEST: postgres
-          PGPASSWORD_TEST: mysecretpassword
+          PGUSER_TEST: isol
+          PGPASSWORD_TEST: 123456
           PGDATABASE_TEST: forumapi_test
           ACCESS_TOKEN_KEY: secret
           REFRESH_TOKEN_KEY: terces
