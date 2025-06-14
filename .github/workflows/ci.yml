@@ -18,9 +18,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: ${{ secrets.PGUSER_TEST }}
-          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD_TEST }}
-          POSTGRES_DB: ${{ secrets.PGDATABASE_TEST }}
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: mysecretpassword
+          POSTGRES_DB: forumapi_test
 
         options: >-
           --health-cmd pg_isready
@@ -39,7 +39,7 @@ jobs:
       - name: npm install migrate and test
         run: |
           npm install
-          npm run migrate:test up
+          npm run migrate up
           npm run test
         env:
           CI: true
